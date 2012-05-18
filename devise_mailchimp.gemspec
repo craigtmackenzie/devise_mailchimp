@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "devise_mailchimp/version"
 
 Gem::Specification.new do |s|
-  s.name        = "devise_mailchimp"
+  s.name        = "cm_devise_mailchimp"
   s.version     = DeviseMailchimp::VERSION
   s.authors     = ["Justin Cunningham"]
   s.email       = ["justin@compucatedsolutions.com"]
