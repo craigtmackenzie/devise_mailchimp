@@ -1,4 +1,4 @@
-require 'hominid'
+require 'gibbon'
 
 module Devise
   module Models
@@ -18,7 +18,7 @@ module Devise
           if @lists.has_key?(list_name)
             return @lists[list_name]
           else
-            list_id = hominid.find_list_id_by_name(list_name)
+            list_id = gibbon.find_list_id_by_name(list_name)
             if list_id.nil?
               raise ListLookupError
             else
@@ -37,7 +37,7 @@ module Devise
           list_names = [list_names] unless list_names.is_a?(Array)
           list_names.each do |list_name|
             list_id = name_to_id(list_name)
-            hominid.list_subscribe(list_id, email, {}, 'html', @double_opt_in, true, true, false)
+            gibbon.list_subscribe(list_id, email, {}, 'html', @double_opt_in, true, true, false)
           end
         end
 
@@ -47,7 +47,7 @@ module Devise
           list_names = [list_names] unless list_names.is_a?(Array)
           list_names.each do |list_name|
             list_id = name_to_id(list_name)
-            hominid.list_unsubscribe(list_id, email, false, false, false)
+            gibbon.list_unsubscribe(list_id, email, false, false, false)
             # don't delete, send goodbye, or send notification
           end
         end
@@ -69,9 +69,9 @@ module Devise
           Rails.cache.write(LIST_CACHE_KEY, @lists)
         end
 
-        # the hominid api helper
-        def hominid
-          @hominid ||= Hominid::API.new(@api_key)
+        # the gibbon api helper
+        def gibbon
+          @gibbon ||= Gibbon.new(@api_key)
         end
       end
     end
